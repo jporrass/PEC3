@@ -66,6 +66,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // BEGIN-UOC-1
+    //aqui comienza la tarea
     func configureTextfields() {
         usernameField.delegate = self
         passwordField.delegate = self
