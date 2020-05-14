@@ -674,8 +674,8 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXv-ti-ANe">
-                                                    <rect key="frame" x="115" y="122" width="145" height="22"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXv-ti-ANe">
+                                                    <rect key="frame" x="52" y="122" width="270" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="egb-uJ-V6F"/>
                                                     </constraints>
@@ -688,11 +688,12 @@
                                                 <constraint firstItem="TXa-hd-ffp" firstAttribute="top" secondItem="7cz-Nw-ngW" secondAttribute="bottom" constant="8" id="DU3-FA-i5T"/>
                                                 <constraint firstItem="7cz-Nw-ngW" firstAttribute="trailing" secondItem="TXa-hd-ffp" secondAttribute="trailing" id="GTz-VA-4eW"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="OtB-NA-NdY" secondAttribute="bottom" constant="8" id="ICn-TH-C2w"/>
+                                                <constraint firstItem="kXv-ti-ANe" firstAttribute="centerX" secondItem="HKQ-Z8-dxw" secondAttribute="centerX" id="Im0-WW-Ler"/>
                                                 <constraint firstItem="aM8-eM-PnC" firstAttribute="top" secondItem="HKQ-Z8-dxw" secondAttribute="topMargin" id="NvB-oM-cr4"/>
                                                 <constraint firstItem="TXa-hd-ffp" firstAttribute="leading" secondItem="OtB-NA-NdY" secondAttribute="trailing" constant="50" id="Oth-qY-GBU"/>
                                                 <constraint firstItem="7cz-Nw-ngW" firstAttribute="top" secondItem="kXv-ti-ANe" secondAttribute="bottom" constant="17" id="QVN-ie-Buy"/>
                                                 <constraint firstItem="7cz-Nw-ngW" firstAttribute="leading" secondItem="hAf-k1-00E" secondAttribute="trailing" constant="82" id="XYO-Wc-nGn"/>
-                                                <constraint firstItem="kXv-ti-ANe" firstAttribute="leading" secondItem="HKQ-Z8-dxw" secondAttribute="leadingMargin" constant="99" id="YtK-2Z-B8g"/>
+                                                <constraint firstItem="kXv-ti-ANe" firstAttribute="leading" secondItem="HKQ-Z8-dxw" secondAttribute="leadingMargin" constant="36" id="YtK-2Z-B8g"/>
                                                 <constraint firstItem="OtB-NA-NdY" firstAttribute="centerY" secondItem="TXa-hd-ffp" secondAttribute="centerY" id="akD-HE-R2H"/>
                                                 <constraint firstItem="kXv-ti-ANe" firstAttribute="centerX" secondItem="HKQ-Z8-dxw" secondAttribute="centerX" id="haU-TE-UgH"/>
                                                 <constraint firstItem="hAf-k1-00E" firstAttribute="centerY" secondItem="7cz-Nw-ngW" secondAttribute="centerY" id="ieq-aw-stw"/>
@@ -701,6 +702,7 @@
                                                 <constraint firstItem="hAf-k1-00E" firstAttribute="leading" secondItem="OtB-NA-NdY" secondAttribute="leading" id="nk1-rZ-bTb"/>
                                                 <constraint firstItem="7cz-Nw-ngW" firstAttribute="leading" secondItem="TXa-hd-ffp" secondAttribute="leading" id="qG5-ye-YMr"/>
                                                 <constraint firstItem="kXv-ti-ANe" firstAttribute="centerX" secondItem="HKQ-Z8-dxw" secondAttribute="centerX" id="v3m-We-Qqo"/>
+                                                <constraint firstItem="kXv-ti-ANe" firstAttribute="centerX" secondItem="HKQ-Z8-dxw" secondAttribute="centerX" id="v4O-ad-Huy"/>
                                                 <constraint firstItem="hAf-k1-00E" firstAttribute="leading" secondItem="HKQ-Z8-dxw" secondAttribute="leadingMargin" id="v6I-nH-B3a"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -770,7 +772,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ocupation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6g-eL-vMH">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ocupation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6g-eL-vMH">
                                                     <rect key="frame" x="16" y="22" width="106" height="20"/>
                                                     <accessibility key="accessibilityConfiguration" label="Name"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -834,7 +836,7 @@
                                                 <constraint firstItem="pWR-Am-ATK" firstAttribute="trailing" secondItem="TWj-Mg-aV6" secondAttribute="trailing" id="RrO-yt-1sg"/>
                                                 <constraint firstItem="pWR-Am-ATK" firstAttribute="leading" secondItem="NIh-c7-JVJ" secondAttribute="trailing" constant="50" id="UfY-ZB-H2Q"/>
                                                 <constraint firstItem="NIh-c7-JVJ" firstAttribute="top" secondItem="P6g-eL-vMH" secondAttribute="bottom" constant="21.5" id="X3d-2G-Dd9"/>
-                                                <constraint firstItem="TWj-Mg-aV6" firstAttribute="leading" secondItem="P6g-eL-vMH" secondAttribute="trailing" constant="23.5" id="aOH-qG-WmN"/>
+                                                <constraint firstItem="TWj-Mg-aV6" firstAttribute="leading" secondItem="P6g-eL-vMH" secondAttribute="trailing" constant="17" id="aOH-qG-WmN"/>
                                                 <constraint firstItem="iQQ-VL-Hmu" firstAttribute="leading" secondItem="P1s-JL-Rrz" secondAttribute="trailing" constant="44" id="aOl-Iv-xg5"/>
                                                 <constraint firstItem="TWj-Mg-aV6" firstAttribute="top" secondItem="WB2-Pr-45q" secondAttribute="topMargin" constant="4" id="agb-in-ppA"/>
                                                 <constraint firstItem="P6g-eL-vMH" firstAttribute="centerY" secondItem="TWj-Mg-aV6" secondAttribute="centerY" id="byH-2c-1oh"/>
