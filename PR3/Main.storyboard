@@ -772,7 +772,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ocupation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6g-eL-vMH">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Occupation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6g-eL-vMH">
                                                     <rect key="frame" x="16" y="22" width="106" height="20"/>
                                                     <accessibility key="accessibilityConfiguration" label="Name"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -866,6 +866,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwT-Uk-hl4">
                                                     <rect key="frame" x="147" y="21" width="81" height="30"/>
                                                     <state key="normal" title="Save profile"/>
+                                                    <connections>
+                                                        <action selector="saveProfileButton:" destination="cf3-Uv-NRo" eventType="touchUpInside" id="dz7-xE-j9l"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -890,6 +893,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <size key="freeformSize" width="375" height="900"/>
+                    <connections>
+                        <outlet property="cityField" destination="Htx-2w-3KG" id="3WS-Lg-1PK"/>
+                        <outlet property="companyField" destination="pWR-Am-ATK" id="vgi-IU-hc8"/>
+                        <outlet property="incomeField" destination="iQQ-VL-Hmu" id="cNA-3U-A2l"/>
+                        <outlet property="nameField" destination="7cz-Nw-ngW" id="UfD-uO-Dux"/>
+                        <outlet property="occupationField" destination="TWj-Mg-aV6" id="63j-KW-wDk"/>
+                        <outlet property="streetAddressField" destination="yyy-qp-ise" id="qZ2-K5-jah"/>
+                        <outlet property="surnameField" destination="TXa-hd-ffp" id="oOs-Se-3X8"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lJh-k5-2aK" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="H88-Jh-U3S" userLabel="Exit" sceneMemberID="exit"/>
