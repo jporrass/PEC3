@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Profile {
+struct Profile :Codable {
     var name: String
     var surname: String
     var streetAddress: String
