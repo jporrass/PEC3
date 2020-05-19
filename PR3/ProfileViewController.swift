@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate{
     var currentProfile: Profile?
     
     // BEGIN-UOC-1
@@ -22,9 +22,9 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var incomeField: UITextField!
     
     
-
-    @IBAction func saveProfileButton(_ sender: UIButton) {
-         
+    
+    func preSaveData() {
+        
         let intInCome = Int(incomeField.text ?? "") ?? 0
            
         let profile = Profile(name: nameField.text!, surname: surnameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!,
@@ -33,25 +33,35 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
         saveProfileData(profile)
         
     }
+
+    @IBAction func saveProfileButton(_ sender: UIButton) {
+         
+        preSaveData()
+        
+    }
     
     
     // END-UOC-1
     
     override func viewDidLoad() {
+        
+    
+
         currentProfile = loadProfile()
         
         showData(currentProfile: currentProfile!)
-        
+             
+        nameField.delegate = self
+        surnameField.delegate = self
+        streetAddressField.delegate = self
+        cityField.delegate = self
+        occupationField.delegate = self
+        companyField.delegate = self
+        incomeField.delegate = self
+        nameField.becomeFirstResponder()
     }
     
     // BEGIN-UOC-2
-    //Obtiene el path para guardar el archico
-    /*
-    func documentsDirectory() -> URL {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] .appendingPathComponent("profile_data")
-        return path
-    }
-    */
     
     //Obtiene Obtiene la ruta de la carpeta documentos.
     func documentsDirectory() -> URL {
@@ -63,7 +73,7 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     func dataFilePath() -> URL {
         return documentsDirectory().appendingPathComponent("profile_data.plist")
     }
-    
+    //Guarda el archivo en el directorio.
     func saveProfileData(_ currentProfile: Profile) {
         
           let encoder = PropertyListEncoder()
@@ -86,36 +96,32 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     
     // BEGIN-UOC-3
     func loadProfile() -> Profile {
+                   
+        //Obtiene la rura del archivo
+        let path = dataFilePath()
         
-        //let profile = Profile(name: nameField.text!, surname: surnameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!,
-        //occupation: occupationField.text!, company: companyField.text!, income: intInCome)
-        
-        
-         // 1
-          let path = dataFilePath()
-          // 2
-          print ("El path obtenido es: \(path)")
-        
+        //Crea un objeto con datos en blanco por si debe devolverlo.
         var profile: Profile?
         profile = Profile(name: "", surname: "", streetAddress: "", city: "", occupation: "", company: "", income: 0)
         
-          if let data = try? Data(contentsOf: path) {
-        // 3
-            
+        if let data = try? Data(contentsOf: path) {
+                   
             let decoder = PropertyListDecoder()
             do {
                 profile = try? decoder.decode(Profile.self, from: data)
-                
-            } catch {
+            }
+            /*
+            catch {
               print("Error decoding item array: \(error.localizedDescription)")
             }
+             */
             
         }
         return profile!
         
     }
     
-   
+   //Muestra la informacion en los campos de texto.
     func showData(currentProfile: Profile) {
         
         nameField.text = currentProfile.name
@@ -131,6 +137,35 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     // END-UOC-3
     
     // BEGIN-UOC-4
+
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+                        
+            switch textField {
+            case nameField:
+                surnameField.becomeFirstResponder()
+            case surnameField:
+                streetAddressField.becomeFirstResponder()
+            case streetAddressField:
+                cityField.becomeFirstResponder()
+            case cityField:
+                 occupationField.becomeFirstResponder()
+            case occupationField:
+                companyField.becomeFirstResponder()
+            case companyField:
+                 incomeField.becomeFirstResponder()
+            case incomeField:
+                 preSaveData()
+            default:
+                preSaveData()
+            }
+          
+        return true
+    }
+    
+  
+    
+    
+    
     // END-UOC-4
     
     // BEGIN-UOC-5
