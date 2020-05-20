@@ -680,6 +680,9 @@
                                                         <constraint firstAttribute="height" constant="22" id="egb-uJ-V6F"/>
                                                     </constraints>
                                                     <state key="normal" title="Update profile image"/>
+                                                    <connections>
+                                                        <action selector="updateProfileImageButton:" destination="cf3-Uv-NRo" eventType="touchUpInside" id="klF-qX-riK"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

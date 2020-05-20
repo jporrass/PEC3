@@ -30,6 +30,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow to chose a pic for the user profile</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow to chose a pic for the user profile</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

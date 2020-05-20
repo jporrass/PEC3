@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import  AVFoundation
 
-class ProfileViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate{
+class ProfileViewController: UITableViewController, UITextFieldDelegate{
     var currentProfile: Profile?
     
     // BEGIN-UOC-1
@@ -161,14 +162,20 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
           
         return true
     }
-    
-  
-    
-    
-    
     // END-UOC-4
     
     // BEGIN-UOC-5
+    
+    
+    @IBAction func updateProfileImageButton(_ sender: UIButton) {
+         
+        //takePhotoWithCamera()
+        
+        //choosePhotoFromLibrary()
+        
+        pickPhoto()
+    }
+    
     // END-UOC-5
     
     // BEGIN-UOC-6
@@ -181,3 +188,67 @@ class ProfileViewController: UITableViewController, UIImagePickerControllerDeleg
     }
     // END-UOC-6
 }
+
+
+extension ProfileViewController:
+    UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate
+{
+// MARK:- Image Helper Methods
+    func takePhotoWithCamera() {
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // MARK:- Image Picker Delegates
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+      dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+      dismiss(animated: true, completion: nil)
+    }
+    
+    func choosePhotoFromLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    
+    func pickPhoto() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            showPhotoMenu()
+          } else {
+            choosePhotoFromLibrary()
+          }
+    }
+    
+    func showPhotoMenu() {
+        let alert = UIAlertController(title: nil, message: nil,preferredStyle: .actionSheet)
+        let actCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      
+        alert.addAction(actCancel)
+        
+        let actPhoto = UIAlertAction(title: "Take Photo", style: .default, handler: nil)
+        
+        alert.addAction(actPhoto)
+        
+        let actLibrary = UIAlertAction(title: "Choose From Library", style: .default, handler: nil)
+        
+        alert.addAction(actLibrary)
+        
+        present(alert, animated: true, completion: nil)
+        
+        
+    }
+}
+
+
