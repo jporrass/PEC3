@@ -10,10 +10,14 @@ import  AVFoundation
 
 class ProfileViewController: UITableViewController, UITextFieldDelegate{
     var currentProfile: Profile?
+    var image: UIImage?
+    var observer: Any! // Es usada para decirle al notification Center que ya no envie la notificacion de que la image se va a cerrar.
+                       // puede ser que no sea necesario si la app ya no esta en primer plano, u otras razones.
+   
     
     // BEGIN-UOC-1
     
-    
+      
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var surnameField: UITextField!
     @IBOutlet weak var streetAddressField: UITextField!
@@ -21,7 +25,7 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate{
     @IBOutlet weak var occupationField: UITextField!
     @IBOutlet weak var companyField: UITextField!
     @IBOutlet weak var incomeField: UITextField!
-    
+    @IBOutlet weak var profileImageView: UIImageView!
     
     
     func preSaveData() {
@@ -72,6 +76,7 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate{
     
     //Prepara el archivo llamado profile_data.plist
     func dataFilePath() -> URL {
+        print (documentsDirectory())
         return documentsDirectory().appendingPathComponent("profile_data.plist")
     }
     //Guarda el archivo en el directorio.
@@ -86,6 +91,10 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate{
         
             //Se guarda el archivo.
             try data.write(to: dataFilePath(),options: Data.WritingOptions.atomic)
+            
+            //Intenta salvar la imagen. //PREGUNTA 6
+            saveProfileImage(image!)
+            
             
           }
           catch
@@ -179,14 +188,42 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate{
     // END-UOC-5
     
     // BEGIN-UOC-6
+    
     func loadProfileImage() -> UIImage? {
+        
+        
         return UIImage(named: "EmptyProfile.png")
     }
     
+    
     func saveProfileImage(_ image: UIImage) {
         
+        if let data = image.jpegData(compressionQuality: 0.5) { // 3
+        do {
+        try data.write(to: documentsDirectory().appendingPathComponent("profile_image"), options: .atomic)
+        } catch {
+              print("Error writing file: \(error)")
+            }
+        }
+        
     }
+    
+    
     // END-UOC-6
+    
+    
+    /*Este metodo es parte de la pregunta 5.
+     */
+       deinit {
+          print("*** deinit \(self)")
+        if observer != nil{
+               NotificationCenter.default.removeObserver(observer!)
+        }
+       
+            
+        }
+     
+    
 }
 
 
@@ -205,7 +242,12 @@ extension ProfileViewController:
     }
     
     // MARK:- Image Picker Delegates
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info:
+    [UIImagePickerController.InfoKey : Any]) {
+    image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+      if let theImage = image {
+        show(image: theImage)
+      }
       dismiss(animated: true, completion: nil)
     }
     
@@ -230,7 +272,7 @@ extension ProfileViewController:
             choosePhotoFromLibrary()
           }
     }
-    
+    //Permite al usuario elegir entre si tomar una foto o elegir una de la libreria.
     func showPhotoMenu() {
         let alert = UIAlertController(title: nil, message: nil,preferredStyle: .actionSheet)
         let actCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -249,6 +291,46 @@ extension ProfileViewController:
         
         
     }
+    //Muestra la imagen.
+    func show(image: UIImage) {
+        profileImageView.image = image
+        profileImageView.isHidden = false
+        
+    }
+    
+    //Este metodo funciona con un listener. Cuando se emite una notificacion de que la app se
+    //va a cambiar de estado, este metodo se ejecuta.
+    //termina lo que esta haciendo un poner el nameField como primer espondedor, para no dejar
+    //a medias el proceso de la seleccion o toma de la foto
+    /*
+    func listenForBackgroundNotification() {
+       observer = NotificationCenter.default.addObserver(forName:
+        UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main) { _ in
+   
+            if self.presentedViewController != nil {
+                self.dismiss(animated: false, completion: nil)
+            }
+            self.nameField.resignFirstResponder()
+            
+        }
+             
+    }
+    */
+    
+    func listenForBackgroundNotification() {
+        observer = NotificationCenter.default.addObserver(
+        forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            if let weakSelf = self {
+                if weakSelf.presentedViewController != nil {
+                    weakSelf.dismiss(animated: false, completion: nil)
+                }
+                weakSelf.nameField.resignFirstResponder()
+            }
+        }
+    }
+
+    
 }
+
 
 

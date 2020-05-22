@@ -890,6 +890,7 @@
                         <outlet property="incomeField" destination="iQQ-VL-Hmu" id="ANm-ML-oWR"/>
                         <outlet property="nameField" destination="7cz-Nw-ngW" id="xXs-ia-77o"/>
                         <outlet property="occupationField" destination="TWj-Mg-aV6" id="oyX-lE-oa8"/>
+                        <outlet property="profileImageView" destination="aM8-eM-PnC" id="F37-ew-UVK"/>
                         <outlet property="streetAddressField" destination="yyy-qp-ise" id="t4N-0S-BrC"/>
                         <outlet property="surnameField" destination="TXa-hd-ffp" id="Cmh-of-ggG"/>
                     </connections>
