@@ -64,6 +64,9 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate{
         companyField.delegate = self
         incomeField.delegate = self
         nameField.becomeFirstResponder()
+            
+        profileImageView.image = loadProfileImage()
+                
     }
     
     // BEGIN-UOC-2
@@ -73,6 +76,11 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate{
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
+    
+     func imageFilePath() -> URL {
+           print (documentsDirectory())
+           return documentsDirectory().appendingPathComponent("profile_image")
+       }
     
     //Prepara el archivo llamado profile_data.plist
     func dataFilePath() -> URL {
@@ -192,8 +200,34 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate{
     func loadProfileImage() -> UIImage? {
         
         
-        return UIImage(named: "EmptyProfile.png")
+        
+        //Obtiene la rura del archivo
+        let path = documentsDirectory().appendingPathComponent("profile_image")
+        if let data = try? Data(contentsOf: path) {
+            image = UIImage(data:data)
+            profileImageView.image = image
+
+           profileImageView.layer.cornerRadius = 5.0;
+           profileImageView.layer.masksToBounds = true;
+         }
+             
+        circleTheImage()
+        
+        if image === nil{
+         return UIImage(named: "EmptyProfile.png")
+        } else {
+            return image
+        }
+        
     }
+
+    func circleTheImage(){
+       profileImageView.contentMode = UIView.ContentMode.scaleAspectFill
+       profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+       profileImageView.layer.masksToBounds = false
+       profileImageView.clipsToBounds = true
+    }
+    
     
     
     func saveProfileImage(_ image: UIImage) {
@@ -216,14 +250,13 @@ class ProfileViewController: UITableViewController, UITextFieldDelegate{
      */
        deinit {
           print("*** deinit \(self)")
-        if observer != nil{
+            if observer != nil{
                NotificationCenter.default.removeObserver(observer!)
-        }
+            }
        
             
         }
-     
-    
+         
 }
 
 
@@ -302,20 +335,7 @@ extension ProfileViewController:
     //va a cambiar de estado, este metodo se ejecuta.
     //termina lo que esta haciendo un poner el nameField como primer espondedor, para no dejar
     //a medias el proceso de la seleccion o toma de la foto
-    /*
-    func listenForBackgroundNotification() {
-       observer = NotificationCenter.default.addObserver(forName:
-        UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main) { _ in
-   
-            if self.presentedViewController != nil {
-                self.dismiss(animated: false, completion: nil)
-            }
-            self.nameField.resignFirstResponder()
-            
-        }
-             
-    }
-    */
+
     
     func listenForBackgroundNotification() {
         observer = NotificationCenter.default.addObserver(
@@ -328,9 +348,20 @@ extension ProfileViewController:
             }
         }
     }
-
     
 }
 
+//Esta extensi162n se utiliza para hacer la imnagen de forma circular.
+extension UIImageView {
+  public func maskCircle(anyImage: UIImage) {
+    self.contentMode = UIView.ContentMode.scaleAspectFill
+    self.layer.cornerRadius = self.frame.height / 2
+    self.layer.masksToBounds = false
+    self.clipsToBounds = true
 
-
+   // make square(* must to make circle),
+   // resize(reduce the kilobyte) and
+   // fix rotation.
+   self.image = anyImage
+  }
+}
